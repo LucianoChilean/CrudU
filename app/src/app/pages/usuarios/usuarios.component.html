@@ -15,6 +15,17 @@
         (ngSubmit)="CrearUsuario()"
         >
             <div class="form-group row">
+                <input 
+                type="hidden" 
+                id="estadoForm"
+                formControlName="estadoForm"
+                >
+                <input 
+                type="hidden" 
+                id="id"
+                formControlName="id"
+                >
+              
                 <div class="col-sm-6 mb-3 mb-sm-0">
                     <input 
                     type="text" 
@@ -70,7 +81,7 @@
                 </div>
 
             <div *ngIf="ocultarEditar">
-            <button   (click)="Editar" 
+            <button    type="submit" 
             class="btn btn-success btn-user btn-block">
                 Editar usuario
             </button>

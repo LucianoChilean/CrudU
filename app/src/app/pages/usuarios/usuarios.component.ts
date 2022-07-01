@@ -23,7 +23,8 @@ export class UsuariosComponent implements OnInit {
     paterno: ['',[Validators.required]] || '',
     materno: ['',[Validators.required]] || '',
     email: ['', [Validators.required,Validators.email]] || '',  
-    password: [ '', [Validators.required]] || ''
+    password: [ '', [Validators.required]] || '',
+    estadoForm: ['registrar']
   })
 
   public Toast = Swal.mixin({
@@ -69,17 +70,39 @@ export class UsuariosComponent implements OnInit {
 
   CrearUsuario(){
 
+
+    this.ocultarEditar = false;
+    this.ocultarRegistro = true;
+
     this.formSubmit = true;
-    console.log(this.userForm.controls);
+    console.log(this.userForm.value);
+
     if(this.userForm.status == 'VALID' && this.userForm.get('email')?.valid){
+
+    if(this.userForm.value.estadoForm == 'registrar'){
+  
       this.usuario.CreaUsuario(this.userForm.value)
-    .subscribe( usuario =>{
-      this.Toast.fire({
-        icon: 'success',
-        title: 'Usuario Creadio Exitosamente'
-      })
+      .subscribe( usuario =>{
+        this.Toast.fire({
+          icon: 'success',
+          title: 'Usuario Creadio Exitosamente'
+        })
+        this.GetUsuarios();
+        this.LimpiarCampos("registrar");
+      });
+    
+    
+    }else{
+      this.usuario.EditaUsuario(this.userForm.value.id,this.userForm.value)
+    .subscribe(usuario =>{
+        this.GetUsuarios();
+        this.LimpiarCampos("registrar")
     });
-    console.log("hola");
+      
+    }
+    
+    
+ 
     }
   
 
@@ -95,14 +118,25 @@ export class UsuariosComponent implements OnInit {
       nombre:  usuario.nombre,
       paterno: usuario.paterno,
       materno: usuario.materno,
-      email: usuario.email
+      email: usuario.email,
+      estadoForm: 'editar'
     })
-  
-  
 
   }
 
-  Editar(){
+  LimpiarCampos(estado:string){
+    this.userForm = this.fb.group({
+      id: '',
+      nombre:  '',
+      paterno: '',
+      materno: '',
+      email: '',
+      estadoForm: estado
+    })
+
+  }
+
+  /*Editar(){
 
     console.log(this.userForm.value);
 
@@ -113,7 +147,7 @@ export class UsuariosComponent implements OnInit {
     .subscribe(usuario =>{
         this.GetUsuarios();
     });
-  }
+  }*/
 
   EliminarUser(id:number){
 
