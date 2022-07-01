@@ -1,47 +1,132 @@
 
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-        For more information about DataTables, please visit the <a target="_blank"
-            href="https://datatables.net">official DataTables documentation</a>.</p>
+    <br>
+    <div class="p-5">
+        <div class="text-center">
+            <h1 class="h4 text-gray-900 mb-4">Crear Usuario</h1>
+        </div>
 
+        <form 
+        class="user"
+        id="userform"
+        autocomplete="off"
+        [formGroup]="userForm"
+        (ngSubmit)="CrearUsuario()"
+        >
+            <div class="form-group row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input 
+                    type="text" 
+                    class="form-control form-control-user" 
+                    id="nombres"
+                    placeholder="Nombres"
+                    formControlName="nombre"
+                    >
+                </div>
+                <div class="col-sm-3">
+                    <input 
+                    type="text"
+                    class="form-control form-control-user" 
+                    id="paterno"
+                    placeholder="paterno"
+                    formControlName="paterno"
+                    >
+                </div>
+                <div class="col-sm-3">
+                    <input 
+                    type="text"
+                    class="form-control form-control-user" 
+                    id="materno"
+                    placeholder="materno"
+                    formControlName="materno"
+                    >
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="email" 
+                class="form-control form-control-user" 
+                id="email"
+                placeholder="E-mail"
+                formControlName="email">
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12 mb-3 mb-sm-0">
+                    <input 
+                    type="password" 
+                    class="form-control form-control-user"
+                    id="password" 
+                    placeholder="Password"
+                    formControlName="password"
+                    >
+                </div>
+              
+            </div>
+            <div *ngIf="ocultarRegistro">
+            <button   type="submit" 
+            class="btn btn-primary btn-user btn-block">
+                Registrar usuario
+            </button>
+                </div>
+
+            <div *ngIf="ocultarEditar">
+            <button   (click)="Editar" 
+            class="btn btn-success btn-user btn-block">
+                Editar usuario
+            </button>
+        </div>
+          
+        <div class="row">
+            <div class="col text-danger">
+
+                <p *ngIf="campoNoValido('email')">* El email es obligatorio y tiene que ser válido</p>
+            </div>
+        </div>
+        </form>
+        
+    </div>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Crud Usuarios</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                            <th>Nombre</th>
+                            <th>Apellido paterno</th>
+                            <th>Apellido materno</th>
+                            <th>Email</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
+                        <tr >
+                            <th>Nombre</th>
+                            <th>Apellido paterno</th>
+                            <th>Apellido materno</th>
+                            <th>Email</th>
+
+                            <th>Acciones</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
+                        <tr *ngFor="let usuario of usuarios">
+                            <td>{{usuario.nombre}}</td>
+                            <td>{{usuario.paterno}}</td>
+                            <td>{{usuario.materno}}</td>
+                            <td>{{usuario.email}}</td>
+
+                          
+                            <td> 
+                                <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    <button type="button" class="btn btn-info" (click)="EditarUser(usuario)">Editar</button>
+                                    <button type="button" class="btn btn-danger" (click)="EliminarUser(usuario.usuario_id)">Eliminar</button>
+
+                                  </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

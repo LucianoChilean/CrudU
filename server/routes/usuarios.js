@@ -24,7 +24,11 @@ router.get('/',[validarJWT],getUsuarios);
 
 router.get('/:id',[validarJWT],getUsuario);
 
-router.post('/',postUsuario);
+router.post('/',[
+  check('email','El correo es obligatorio').isEmail(),
+  check('password','La contraseña es obligatoria').not().isEmpty(),
+  ValidarCampos
+],postUsuario);
 
 router.put('/:id',[validarJWT],putUsuario);
 

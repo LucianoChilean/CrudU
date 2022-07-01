@@ -6,14 +6,6 @@ const Usuario = require('../models/usuario');
 
 const getUsuarios = async(req, res = response) =>{
 
-    /*const {page =2 ,size = 5} = req.query;
-
-    let options = {
-        limit: +size,
-        offset: (+page) * (+size)
-    }
-
-    const { count, rows } = await Usuario.findAndCountAll(options);*/
 
     const usuarios = await Usuario.findAll();
 
@@ -34,8 +26,8 @@ const getUsuario = async(req, res = response) =>{
 
 const postUsuario = async(req, res = response) => {
 
-    const {nombre,paterno,materno,email,password,estado,rol_id} = req.body;
-    const usuario = Usuario.build({nombre,paterno,materno,email,password,estado,rol_id});
+    const {nombre,paterno,materno,email,password,estado = true} = req.body;
+    const usuario = Usuario.build({nombre,paterno,materno,email,password,estado});
 
     const salt = bcryptjs.genSaltSync();
     usuario.password = bcryptjs.hashSync(password,salt);
@@ -86,7 +78,7 @@ const deleteUsuario = async(req, res = response) =>{
         })
     }
     
-    await usuario.update({estado:false});
+    await usuario.destroy();
 
     res.json(usuario);
 

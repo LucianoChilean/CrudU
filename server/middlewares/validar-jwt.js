@@ -4,17 +4,7 @@ const Usuario = require('../models/usuario');
 
 const validarJWT = async(req = request,res = response,next) => {
 
-    var   auth       = req.header('Authorization');
-    let token;
-
-    if(!auth.includes('Bearer')){
-        token = auth;
-    }else{
-       
-        const TokenSplit = auth.split(" ");
-        token = TokenSplit[1];
-    }
-
+    const token = req.header('Authorization');
 
     if(!token){
         return res.status(401).json({

@@ -57,7 +57,7 @@ export class UsuarioService {
  }
 
  CreaUsuario(Usuario:object){
-   return this.http.post(`${base_url}/usuarios/`,Usuario);
+ return this.http.post(`${base_url}/usuarios/`,Usuario);
  }
 
  EditaUsuario(id:number,Usuario:object){
