@@ -23,7 +23,7 @@ class Server{
    async connectDB(){
      try {
         await db.authenticate();
-        await db.sync({force:true}); 
+        await db.sync(); 
      }catch(e){
         console.log(e)
         throw new Error('error en conectar BD');

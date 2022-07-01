@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PagesComponent } from './pages.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -17,7 +18,9 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PagesModule { }

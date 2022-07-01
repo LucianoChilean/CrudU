@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { Usuario } from 'src/app/interfaces/usuario.interfaces';
+import { UsuarioService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -7,9 +10,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsuariosComponent implements OnInit {
 
-  constructor() { }
+  public usuarios : Usuario[] = [];
+
+  constructor(
+    private usuario:UsuarioService,
+    private fb:FormBuilder
+  ) { }
 
   ngOnInit(): void {
+    this.GetUsuarios();
+  }
+
+  GetUsuarios(){
+
+   this.usuario.GetUsuarios()
+   .subscribe( resp =>{
+    console.log(resp)
+   });
+
   }
 
 }
